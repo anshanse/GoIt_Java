@@ -8,7 +8,8 @@ public class AskPerson {
         System.out.print("Input your city: ");
         String city = in.nextLine();
         System.out.print("Input age: ");
-        int age = Integer.parseInt(in.nextLine());
+        int age = in.nextInt();
+        in.nextLine();
         System.out.print("What is your hobby: ");
         String hobby = in.nextLine();
         System.out.print("Input variant (1/2/3): ");
