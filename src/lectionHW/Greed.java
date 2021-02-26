@@ -9,7 +9,7 @@ public class Greed {
         String dices = "";
         while (step){
              dices = in.nextLine();
-             if (dices.matches("\\d[1-6] \\d[1-6] \\d[1-6] \\d[1-6] \\d[1-6] \\d[1-6]")){
+             if (dices.matches("\\d[1-6] {6}")){
                  step = false;
              }
              else {
