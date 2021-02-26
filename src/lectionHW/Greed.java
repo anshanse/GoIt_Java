@@ -6,29 +6,20 @@ public class Greed {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         boolean step = true;
-        String dices;
-        String [] dice = new String[6];
+        String dices = "";
         while (step){
              dices = in.nextLine();
-             if (dices.matches("\\d \\d \\d \\d \\d \\d")){
+             if (dices.matches("\\d[1-6] \\d[1-6] \\d[1-6] \\d[1-6] \\d[1-6] \\d[1-6]")){
                  step = false;
-                 dice = dices.split(" ");
-                 for (int i = 0; i < dice.length-1; i++) {
-                     if (Integer.parseInt(dice[i])>6 || Integer.parseInt(dice[i])<1){
-                         System.out.println("Enter 1 - 6 digits only");
-                     }
-                 }
              }
              else {
-                 System.out.println("Enter 6 digits only");
+                 System.out.println("Enter 0 - 6 digits only");
              }
         }
-        //String dices = in.nextLine();
-        //String [] dice = dices.split(" ");
+        String [] dice = dices.split(" ");
         String diceNum = dice[0];
         int count = 0;
         String diceScore = diceNum;
-        //String DiceSum = "";
         for (int i = 1; i < dice.length+1 ; i++) {
             if (i < dice.length && diceNum.equals(dice[i])){
                 diceScore = diceScore + dice[i];
