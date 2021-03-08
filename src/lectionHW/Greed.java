@@ -4,12 +4,13 @@ import java.util.Scanner;
 
 public class Greed {
     public static void main(String[] args) {
+
         Scanner in = new Scanner(System.in);
         boolean step = true;
         String dices = "";
         while (step){
              dices = in.nextLine();
-             if (dices.matches("\\d[1-6] {6}")){
+             if (dices.matches("\\d[1-6] {5}")){
                  step = false;
              }
              else {
