@@ -1,6 +1,7 @@
 package lectionHW.Collections;
 
 import java.util.ArrayList;
+//import java.util.Arrays;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class MyArrayList <E>{
     }
 
     public E[] remove(int index){
-        E [] newArr =(E[]) new Object[sizeArr-1];
+        Object[] newArr = new Object[sizeArr-1];
         int j=0;
         for (int i=0; i<sizeArr; i++){
             if (i != index) {
@@ -46,23 +47,14 @@ public class MyArrayList <E>{
         return array = (E[]) newArr;
     }
 
-    public E[] clear (){
+    public void clear (){
         sizeArr = 0;
-        return array = (E[]) new Object [10];
+        array = (E[]) new Object [10];
     }
 
     @Override
     public String toString() {
-        int iMax = sizeArr - 1;
-        StringBuilder b = new StringBuilder();
-        b.append('[');
-        for (int i = 0; ; i++) {
-            b.append(array[i]);
-            if (i == iMax)
-                return b.append(']').toString();
-            b.append(", ");
-        }
-
+        return Arrays.toString(array);
     }
 
     public static void main(String[] args) {
@@ -71,11 +63,11 @@ public class MyArrayList <E>{
         myArrList.add(5);
         arrList.add(5);
         myArrList.add(6);
-        myArrList.add(7);
-        myArrList.add(8);
         arrList.add(6);
-        System.out.println(myArrList.remove(1));
-        System.out.println(arrList.remove(1));
+        myArrList.remove(1);
+        arrList.remove(1);
+        myArrList.clear();
+        arrList.clear();
 
     }
 
