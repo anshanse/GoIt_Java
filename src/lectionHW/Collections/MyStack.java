@@ -3,11 +3,10 @@ package lectionHW.Collections;
 public class MyStack<E> {
 
     private int sizeStack;
-    private E value;
-    StackNode first;
-    StackNode last;
+    private StackNode<E> first;
+    private StackNode<E> last;
 
-    class StackNode<E>{
+    private static class StackNode<E>{
         StackNode<E> prev;
         E value;
         StackNode<E> next;
@@ -20,8 +19,8 @@ public class MyStack<E> {
     }
 
     public void push(E value){             // добавляет элемент в конец
-        StackNode l = last;
-        StackNode newStackNode = new StackNode(l,value,null);
+        StackNode<E> l = last;
+        StackNode<E> newStackNode = new StackNode<>(l,value,null);
         last = newStackNode;
         if (l == null){
             first = newStackNode;
@@ -34,36 +33,17 @@ public class MyStack<E> {
 
     public void remove(int index) {             //удаляет элемент под индексом
         StackNode<E> x;
-        StackNode<E> removeNext;
-        StackNode<E> removePrev;
-        E removeValue;
 
-        if (index>=0 && index<=sizeStack){
-            x = first;
-            for (int i = 0; i < index; i++) {
-                x=x.next;
-            }
-            removeValue = x.value;
-            removePrev = x.prev;
-            removeNext = x.next;
-            if (removePrev == null){
-                first = removeNext;
-            }
-            else{
-                removePrev.next = removeNext;
-                x.prev = null;
-            }
-            if (removeNext == null){
-                last = removePrev;
-            }
-            else {
-                removeNext.prev = removePrev;
-                x.next = null;
-            }
-            x.value=null;
-            sizeStack--;
+        if (index < 0 || index >= sizeStack) throw new IndexOutOfBoundsException();
+        x = first;
+        for (int i = 0; i < index; i++) {
+            x = x.next;
         }
-        else throw new IndexOutOfBoundsException();
+        if (x.prev == null) first = x.next;
+        else x.prev.next = x.next;
+        if (x.next == null) last = x.prev;
+        else x.next.prev = x.prev;
+        sizeStack--;
     }
 
     public void clear() {                       //очищает коллекцию
@@ -82,7 +62,7 @@ public class MyStack<E> {
     }
 
     public E peek() {                        //возвращает первый элемент в стеке(LIFO)
-        return (E) last.value;
+        return last.value;
     }
 
     public E pop() {                         //возвращает первый элемент в стеке и удаляет его из коллекции
@@ -102,6 +82,7 @@ public class MyStack<E> {
         System.out.println(myStack.size());
         System.out.println(myStack.pop());
         System.out.println(myStack.size());
+        myStack.clear();
     }
 
 

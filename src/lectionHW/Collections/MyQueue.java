@@ -4,11 +4,10 @@ package lectionHW.Collections;
 
 public class MyQueue<E> {
     private int sizeQueue;
-    private E value;
-    MyNode first;
-    MyNode last;
+    private MyNode<E> first;
+    private MyNode<E> last;
 
-    class MyNode<E>{
+    private static class MyNode<E>{
         MyNode<E> prev;
         E value;
         MyNode<E> next;
@@ -21,8 +20,8 @@ public class MyQueue<E> {
     }
 
     public void add(E value) {
-        MyNode l = last;
-        MyNode newNode = new MyNode(l, value, null);
+        MyNode<E> l = last;
+        MyNode<E> newNode = new MyNode<>(l, value, null);
         last = newNode;
         if (l == null) {
             first = newNode;
@@ -32,55 +31,32 @@ public class MyQueue<E> {
         }
         sizeQueue++;
     }
+
     public void remove(int index) {
         MyNode<E> x;
-        MyNode<E> removeNext;
-        MyNode<E> removePrev;
-        E removeValue;
 
-        if (index>=0 && index<=sizeQueue){
-            x = first;
-            for (int i = 0; i < index; i++) {
-                x=x.next;
-            }
-            removeValue = x.value;
-            removePrev = x.prev;
-            removeNext = x.next;
-            if (removePrev == null){
-                first = removeNext;
-            }
-            else{
-                removePrev.next = removeNext;
-                x.prev = null;
-            }
-            if (removeNext == null){
-                last = removePrev;
-            }
-            else {
-                removeNext.prev = removePrev;
-                x.next = null;
-            }
-            x.value=null;
-            sizeQueue--;
+        if (index < 0 || index >= sizeQueue) throw new IndexOutOfBoundsException();
+        x = first;
+        for (int i = 0; i < index; i++) {
+            x = x.next;
         }
-        else throw new IndexOutOfBoundsException();
+        if (x.prev == null) first = x.next;
+        else x.prev.next = x.next;
+        if (x.next == null) last = x.prev;
+        else x.next.prev = x.prev;
+        sizeQueue--;
     }
+
     public void clear() {
-        for (MyNode<E> x = first; x != null;) {
-            MyNode<E> tmpNext = x.next;
-            x.next=null;
-            x.prev=null;
-            x.value=null;
-            x = tmpNext;
-            sizeQueue--;
-        }
+        first = null;
+        last = null;
 
     }
     public int size() {
         return sizeQueue;
     }
     public E peek() {            //возвращает первый элемент в очереди (FIFO)
-        return (E) first.value;
+        return first.value;
     }
     public E poll(){             //возвращает первый элемент в очереди и удаляет его из коллекции
         E result = peek();

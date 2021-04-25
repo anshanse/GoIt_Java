@@ -32,18 +32,18 @@ public class MyArrayList <E>{
         array[sizeArr++] = a;
     }
 
+    public E get (int index){
+        return array[index];
+    }
+
     public int size(){
         return sizeArr;
     }
 
     public E[] remove(int index){
-        Object[] newArr = new Object[sizeArr-1];
-        int j=0;
-        for (int i=0; i<sizeArr; i++){
-            if (i != index) {
-                newArr[j++] =(E) array[i];
-            }
-        }
+        Object[] newArr = new Object[array.length-1];
+        System.arraycopy(array,0,newArr,0, index);
+        System.arraycopy(array,index+1,newArr,index,array.length-index-1);
         return array = (E[]) newArr;
     }
 
@@ -61,11 +61,15 @@ public class MyArrayList <E>{
         MyArrayList<Integer> myArrList = new MyArrayList<>();
         List<Integer> arrList = new ArrayList<>();
         myArrList.add(5);
-        arrList.add(5);
         myArrList.add(6);
+        myArrList.add(7);
+        myArrList.add(8);
+        arrList.add(5);
+        myArrList.add(9);
         arrList.add(6);
         myArrList.remove(1);
         arrList.remove(1);
+        int a = myArrList.get(2);
         myArrList.clear();
         arrList.clear();
 
