@@ -3,10 +3,7 @@ package lectionHW.IO.ReadFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +11,7 @@ import java.util.Scanner;
 public class ReadOutJson {
     public static void main(String[] args) throws IOException {
         List<User> user = new ArrayList<>();
-        try (Scanner sc = new Scanner(new File("src/lectionHW/IO/ReadFile/file2.txt"))) {
+        try (Scanner sc = new Scanner(new BufferedInputStream(ReadFile.class.getResourceAsStream("/file2.txt")))) {
             String readData;
             while (sc.hasNext()){
                 readData = sc.nextLine();
@@ -24,7 +21,7 @@ public class ReadOutJson {
                 }
             }
         }
-        try (FileWriter fw = new FileWriter("src/lectionHW/IO/ReadFile/file2Json.txt")){
+        try (FileWriter fw = new FileWriter("src/lectionHW/IO/ReadFile/Resources/file2Json.json")){
             //Gson gson = new GsonBuilder().
             fw.write(new GsonBuilder().setPrettyPrinting().create().toJson(user));
         }

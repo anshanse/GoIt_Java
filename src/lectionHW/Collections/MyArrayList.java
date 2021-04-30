@@ -44,6 +44,7 @@ public class MyArrayList <E>{
         Object[] newArr = new Object[array.length-1];
         System.arraycopy(array,0,newArr,0, index);
         System.arraycopy(array,index+1,newArr,index,array.length-index-1);
+        sizeArr--;
         return array = (E[]) newArr;
     }
 

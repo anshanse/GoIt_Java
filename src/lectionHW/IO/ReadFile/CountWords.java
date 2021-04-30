@@ -10,14 +10,15 @@ public class CountWords {
         int ch;
         StringBuilder sb = new StringBuilder();
         boolean isRepeat = false;
-        try(FileReader is = new FileReader("src/lectionHW/IO/ReadFile/file3.txt")) {
+        try(FileReader is = new FileReader("src/lectionHW/IO/ReadFile/Resources/file3.txt")) {
+
             while ((ch = is.read()) !=-1){
                 //char c = (char) ch;
                 if ((((char) ch) != '\r') && (((char) ch) != '\n')) {
                     sb.append((char) ch);
                     isRepeat = false;
                 }
-                else if ((((char) ch) == '\r') && !isRepeat) {
+                else if (((((char) ch) == '\r') || (((char) ch) != '\n')) && !isRepeat) {
                     sb.append(' ');
                     isRepeat = true;
                 }
