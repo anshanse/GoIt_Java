@@ -4,23 +4,21 @@ import java.util.*;
 
 public class MyHashMap<K,V> {
 
-    private static int sizeHashMap;
-    private HashNode<K,V> first;
-    private HashNode<K,V> last;
+    private int sizeHashMap;
     private HashNode<K,V> [] hashArray;
+    private final int INITIAL_SIZE = 16;
 
     public MyHashMap() {
-        int INITIAL_SIZE = 16;
+
         this.hashArray = new HashNode[INITIAL_SIZE];
         sizeHashMap =0;
     }
 
-    private class HashNode<K,V>{
+    private static class HashNode<K,V>{
         K key;
         V value;
         int hash;
         HashNode<K,V> next;
-        int index;
 
         public HashNode(K key, V value) {
             this.key = key;
@@ -41,10 +39,10 @@ public class MyHashMap<K,V> {
             return hash == hashNode.hash && Objects.equals(key, hashNode.key);
         }
 
-        /*@Override
-        public int hashCode() {
-            return Objects.hash(key);
-        }*/
+        @Override
+        public String toString() {
+            return "key=" + key + ", value=" + value;
+        }
     }
 
     private int indexOf(K key){
@@ -62,84 +60,75 @@ public class MyHashMap<K,V> {
         HashNode<K,V> x;
         HashNode<K,V> newElement = new HashNode<>(key, value);
         int index = indexOf(newElement.key);
+        if (hashArray.length-1<index) this.resize();
         if (hashArray[index] == null) {
             hashArray[index] = newElement;
             sizeHashMap++;
-            ismatch = true;
-            //hashArray[index].next = newElement;
         }
         else {
-            //HashNode<K,V> x;
             x = hashArray[index];
             do {
                 if (x.equals(newElement)) {
                     x.value = newElement.value;
                     ismatch = true;
                 }
-                //x = x.next;
-            }while ((x = x.next) != null);
-            /*for (x = hashArray[index]; x.next != null;){
-                ;
-            }*/
+            }while ((x.next) != null);
+            if (!ismatch) {
+                x.next = newElement;
+                sizeHashMap++;
+            }
         }
-        if (!ismatch) {
-            for (x = hashArray[index]; x.next != null;) x = x.next;
-            x.next = newElement;
-            sizeHashMap++;
-        }
-
     }
 
-    public void remove(Object key) {                        //удаляет пару по ключу
-        int hashKey = Objects.hash(key);
-        HashNode<K,V> removeNext;
-        for (HashNode<K,V> x = first; x != null;){
-            removeNext = x;
-            if (hashKey == x.next.hash){
-                removeNext.next = x.next.next;
-                x.next.value = null;
-                x.next.key = null;
-                x.next.next = null;
-                break;
-            }
-            x = x.next;
+    public void remove(K key) {                         //удаляет пару по ключу
+        int index = indexOf(key);
+        HashNode<K,V> x;
+        if (hashArray[index].next == null) hashArray[index] = null;
+        else{
+            x = hashArray[index];
+            do{
+                if (Objects.equals(x.next.key,key)) {
+                    x.next = null;
+                }
+            }while ((x = x.next) != null);
         }
+        --sizeHashMap;
     }
 
     public void clear() {                                   //очищает коллекцию
-        first = null;
-        last = null;
-        sizeHashMap = 0;
+        hashArray = new HashNode[INITIAL_SIZE];
+        sizeHashMap =0;
     }
 
     public int size() {                                    //возвращает размер коллекции
         return sizeHashMap;
     }
 
-    public V get(K key) {                           //возвращает значение (Object value)по ключу
-        int hashKey = Objects.hash(key);
-        V searchValue = null;
-        for (HashNode<K,V> x = first; x != null;){
-            if (hashKey == x.hash){
-                searchValue = x.value;
-            }
-            x=x.next;
+    public HashNode<K,V> get(K key) {                           //возвращает значение (Object value)по ключу
+        int index = indexOf(key);
+        HashNode<K,V> x, resultGet = null;
+        if (hashArray[index].next == null) resultGet = hashArray[index];
+        else {
+            x = hashArray[index].next;
+            do{
+                if (Objects.equals(x.key,key)) resultGet = x;
+            }while ((x = x.next) != null);
         }
-        return searchValue;
+        return resultGet;
     }
 
     public static void main(String[] args) {
         MyHashMap<Integer, Integer> myMap = new MyHashMap<>();
-        //new HashMap<>();
         myMap.put(1,1);
         myMap.put(2,2);
         myMap.put(10,2);
         myMap.put(2,3);
         myMap.put(3,3);
         myMap.put(4,4);
+        myMap.put(17,5);
+        System.out.println(myMap.get(17));
         myMap.remove(3);
         int size = myMap.size();
-        int value0 = myMap.get(2);
         myMap.clear();
     }
 }
