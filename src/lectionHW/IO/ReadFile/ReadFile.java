@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class ReadFile {
     public static void main(String[] args) throws IOException {
 
-        try (Scanner sc = new Scanner(new BufferedInputStream(ReadFile.class.getResourceAsStream("/file1.txt")))) {
+        try (Scanner sc = new Scanner(new FileInputStream("src/lectionHW/IO/ReadFile/Resources/file1.txt"))) {
             String phoneNumber;
             while (sc.hasNext()) {
                 phoneNumber = sc.nextLine();

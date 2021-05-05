@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class ReadOutJson {
     public static void main(String[] args) throws IOException {
         List<User> user = new ArrayList<>();
-        try (Scanner sc = new Scanner(new BufferedInputStream(ReadFile.class.getResourceAsStream("/file2.txt")))) {
+        try (Scanner sc = new Scanner(new FileInputStream("src/lectionHW/IO/ReadFile/Resources/file2.txt"))) {
             String readData;
             while (sc.hasNext()){
                 readData = sc.nextLine();

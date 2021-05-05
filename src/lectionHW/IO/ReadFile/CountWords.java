@@ -1,5 +1,6 @@
 package lectionHW.IO.ReadFile;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,18 +11,10 @@ public class CountWords {
         int ch;
         StringBuilder sb = new StringBuilder();
         boolean isRepeat = false;
-        try(FileReader is = new FileReader("src/lectionHW/IO/ReadFile/Resources/file3.txt")) {
-
-            while ((ch = is.read()) !=-1){
-                //char c = (char) ch;
-                if ((((char) ch) != '\r') && (((char) ch) != '\n')) {
-                    sb.append((char) ch);
-                    isRepeat = false;
-                }
-                else if (((((char) ch) == '\r') || (((char) ch) != '\n')) && !isRepeat) {
-                    sb.append(' ');
-                    isRepeat = true;
-                }
+        try(BufferedReader is = new BufferedReader(new FileReader("src/lectionHW/IO/ReadFile/Resources/file3.txt"))) {
+            String read;
+            while ((read =is.readLine()) != null){
+                sb.append(read.trim()).append(" ");
             }
         }
         String [] stringLine = sb.toString().split(" ");
