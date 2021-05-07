@@ -16,8 +16,9 @@ public class ChangeList2 {
         List<String> readList = Files.readAllLines(Paths.get("src/lectionHW/Functional/Resources/File1.txt"));
 
         /*Function<String, String> upCase = String::toUpperCase;
-        for (String str : readList) {
-            upCase.apply(str);
+        for (int i=0; i< readList.size(); i++) {
+            //upCase.apply(str);
+            readList.set(i, upCase.apply(readList.get(i)));
         }
         Collections.sort(readList, Comparator.reverseOrder());*/
 
