@@ -3,23 +3,30 @@ package lectionHW.MultiThreads.Chrono;
 public class Chronometer {
     public int time =0;
 
-    public void timeCount(Massager msg) throws InterruptedException {
+
+    public void timeCount(Messager msg, int period) throws InterruptedException {
         synchronized (this) {
-            for (int i = 0; i < 15; i++) {
-                Thread.sleep(1);
+            for (int i = 0; i < period; i++) {
+                Thread.sleep(500);
                 time++;
+                if (time == period) msg.setStop(true);
                 if ((time % msg.getCheckTime()) !=0) {
                     System.out.println(time);
+                    Thread.sleep(500);
                 }
-                else this.wait();
+
+                else {
+                    this.notify();
+                    this.wait(500);
+                }
             }
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
         Chronometer chronometer = new Chronometer();
-        Massager msg = new Massager(5, chronometer);
-        msg.start();
-        chronometer.timeCount(msg);
+        Messager msg = new Messager(5, chronometer);
+        new Thread(msg).start();
+        chronometer.timeCount(msg, 10);
     }
 }
