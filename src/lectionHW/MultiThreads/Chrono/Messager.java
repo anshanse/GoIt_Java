@@ -22,18 +22,17 @@ public class Messager implements Runnable {
     public void run() {
         while (true) {
             synchronized (chron) {
-
                 try {
                     if ((chron.time % checkTime) == 0) {
                         System.out.println("Passed " + chron.time + " sec");
                         chron.wait();
-                        //chron.notify();
-                        if (isStop) return;
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                if (isStop) break;
             }
+
         }
     }
 }
