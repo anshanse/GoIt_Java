@@ -30,7 +30,7 @@ public class Messager implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (isStop) break;
+                if (isStop) return;
             }
 
         }

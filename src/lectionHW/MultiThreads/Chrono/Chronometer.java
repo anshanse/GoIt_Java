@@ -13,7 +13,7 @@ public class Chronometer {
                     Thread.sleep(500);
                     this.notify();
                     this.wait(500);
-                if (time == period-1) {
+                if (time == period) {
                     msg.setStop(true);
                     this.notify();
                 }
@@ -24,7 +24,9 @@ public class Chronometer {
     public static void main(String[] args) throws InterruptedException {
         Chronometer chronometer = new Chronometer();
         Messager msg = new Messager(5, chronometer);
-        new Thread(msg).start();
+        Thread msgTread = new Thread(msg);
+        msgTread.start();
         chronometer.timeCount(msg, 10);
+        msgTread.interrupt();
     }
 }
