@@ -25,8 +25,9 @@ public class Chronometer {
         Chronometer chronometer = new Chronometer();
         Messager msg = new Messager(5, chronometer);
         Thread msgTread = new Thread(msg);
+        msgTread.setDaemon(true);
         msgTread.start();
         chronometer.timeCount(msg, 10);
-        msgTread.interrupt();
+        //msgTread.interrupt();
     }
 }
