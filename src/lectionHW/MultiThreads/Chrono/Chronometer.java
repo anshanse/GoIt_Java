@@ -9,10 +9,10 @@ public class Chronometer {
             for (int i = 0; i < period; i++) {
                 Thread.sleep(500);
                 time++;
-                    System.out.println(time);
-                    Thread.sleep(500);
-                    this.notify();
-                    this.wait(500);
+                System.out.println(time);
+                //Thread.sleep(500);
+                this.notify();
+                this.wait(500);
                 if (time == period) {
                     msg.setStop(true);
                     this.notify();
