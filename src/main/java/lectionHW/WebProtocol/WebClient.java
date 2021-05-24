@@ -102,10 +102,10 @@ public class WebClient {
     }
 
     public void updateInfo(WebUser user) throws IOException {
-        user.setPhone("3333-3333");
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(user);
-        System.out.println(json);
+        //user.setPhone("3333-3333");
+        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        //String json = gson.toJson(user);
+        //System.out.println(json);
         HttpUrl url = HttpUrl.parse(REQUEST_URL+"/users").newBuilder().addPathSegment(String.valueOf(user.getId())).build();
         //RequestBody body = RequestBody.create(MediaType.parse("application/json"), json);
         RequestBody body = new FormBody.Builder().add("phone", "3333-3333").build();
