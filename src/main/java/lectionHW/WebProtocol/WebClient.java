@@ -105,13 +105,17 @@ public class WebClient {
         user.setPhone("3333-3333");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(user);
-        RequestBody body = RequestBody.create(MediaType.parse("application/json"), json);
+        System.out.println(json);
+        HttpUrl url = HttpUrl.parse(REQUEST_URL+"/users").newBuilder().addPathSegment(String.valueOf(user.getId())).build();
+        //RequestBody body = RequestBody.create(MediaType.parse("application/json"), json);
+        RequestBody body = new FormBody.Builder().add("phone", "3333-3333").build();
         Request request = new Request.Builder()
-                .url(REQUEST_URL+"/users")
-                .post(body)
+                .url(url)
+                .put(body)
                 .build();
         Response response = connection.newCall(request).execute();
         System.out.println("Update User Info:\n" + response + "\n******************");
+        printResponse(response);
     }
 
     public void printResponse (Response response){
