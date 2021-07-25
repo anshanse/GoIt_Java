@@ -1,0 +1,45 @@
+package Bin;
+
+import Model.Goods;
+import Storage.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+public class GroceryBin implements Bin<Storage, String>{
+
+    private double totalCost=0, cost;
+
+    private Map parseOrder (String orderList){
+        Map<Character, Integer> order = new HashMap<>();
+        char[] list = orderList.toCharArray();
+        for (int i = 0; i < list.length; i++) {
+            int counter = 0;
+            for (int j = 0; j < list.length; j++) {
+                if (list[i]==(list[j])) counter++;
+            }
+            order.put(list[i],counter);
+        }
+        return order;
+    }
+
+    @Override
+    public double calculateTotalCost(Storage storage, String goodsLine) {
+
+        Map<Character, Integer> order = parseOrder(goodsLine);
+
+        Iterator<Map.Entry<Character, Integer>> iterator = order.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<Character, Integer> entry = iterator.next();
+            Goods item = storage.getGoods(entry.getKey().toString());
+            if (item.getSaleable()){
+                cost = (entry.getValue() / item.getDiscountQty() * item.getDiscountPrice()) +
+                        (entry.getValue() % item.getDiscountQty() * item.getPrice());
+            }
+            else cost = entry.getValue() * item.getPrice();
+            totalCost += cost;
+        }
+
+        return totalCost;
+    }
+}
