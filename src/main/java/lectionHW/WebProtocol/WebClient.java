@@ -8,12 +8,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class WebClient {
     private static final String REQUEST_URL ="https://jsonplaceholder.typicode.com";
     private WebUser [] users;
-    private static OkHttpClient connection = new OkHttpClient();
+    private static final OkHttpClient connection = new OkHttpClient();
 
     public static void main(String[] args) throws IOException {
         WebClient webClient = new WebClient();
@@ -36,14 +37,14 @@ public class WebClient {
     }
 
     public WebUser[] getUsers() throws IOException {
-        String url = HttpUrl.parse(REQUEST_URL+"/users").newBuilder().build().toString();
+        String url = Objects.requireNonNull(HttpUrl.parse(REQUEST_URL + "/users")).newBuilder().build().toString();
         Request request = new Request.Builder()
                 .url(url)
                 .get()
                 .build();
         Gson gson = new Gson();
-        WebUser[] users = gson.fromJson(new BufferedReader(new InputStreamReader(connection.newCall(request).execute()
-                .body().byteStream())).lines().collect(Collectors.joining("\n")), WebUser[].class);
+        WebUser[] users = gson.fromJson(new BufferedReader(new InputStreamReader(Objects.requireNonNull(connection.newCall(request).execute()
+                .body()).byteStream())).lines().collect(Collectors.joining("\n")), WebUser[].class);
         System.out.println("Get Users:\n" + connection.newCall(request).execute()+"\n******************");
         return users;
     }

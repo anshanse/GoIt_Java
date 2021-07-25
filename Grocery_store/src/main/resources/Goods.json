@@ -1,0 +1,30 @@
+[
+	{
+	"name":"A",
+	"price":1.25,
+	"saleable": true,
+	"discountQty":3,
+	"discountPrice":3.0
+	},
+	{
+	"name":"B",
+	"price":4.25,
+	"saleable": false,
+	"discountQty":0,
+	"discountPrice":0.0
+	},
+	{
+	"name":"C",
+	"price":1.00,
+	"saleable": true,
+	"discountQty":6,
+	"discountPrice":5.0
+	},
+	{
+	"name":"D",
+	"price":0.75,
+	"saleable": false,
+	"discountQty":0,
+	"discountPrice":0.0
+	}
+]
