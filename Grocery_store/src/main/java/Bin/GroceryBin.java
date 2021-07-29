@@ -10,22 +10,24 @@ public class GroceryBin implements Bin<Storage, String>{
 
     private double totalCost=0, cost;
 
-    private Map parseOrder (String orderList){
+    private Map parseOrder (Storage storage, String orderList){
         Map<Character, Integer> order = new HashMap<>();
         char[] list = orderList.toCharArray();
         for (int i = 0; i < list.length; i++) {
-            int counter = 0;
-            for (int j = 0; j < list.length; j++) {
-                if (list[i]==(list[j])) counter++;
+            if (storage.existByID(String.valueOf(list[i]))) {
+                int counter = 0;
+                for (int j = 0; j < list.length; j++) {
+                    if (list[i] == (list[j])) counter++;
+                }
+                order.put(list[i], counter);
             }
-            order.put(list[i],counter);
         }
         return order;
     }
 
     private boolean isTrash (String orderList){
         boolean trash = true;
-        if (orderList.isEmpty() || orderList.matches("[A-Z]*")) trash = false;
+        if (orderList.isEmpty() || orderList.toUpperCase().matches(".[A-Z]*")) trash = false;
         return trash;
     }
 
@@ -33,7 +35,7 @@ public class GroceryBin implements Bin<Storage, String>{
     public double calculateTotalCost(Storage storage, String goodsLine) {
         if (isTrash(goodsLine)) totalCost = 0;
         else {
-            Map<Character, Integer> order = parseOrder(goodsLine);
+            Map<Character, Integer> order = parseOrder(storage, goodsLine.toUpperCase());
 
             Iterator<Map.Entry<Character, Integer>> iterator = order.entrySet().iterator();
             while (iterator.hasNext()) {

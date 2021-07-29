@@ -29,6 +29,11 @@ public class GroceryStorage implements Storage<String> {
     }
 
     @Override
+    public boolean existByID (String id){
+        return repository.existsById(id);
+    }
+
+    @Override
     public Goods getGoods (String name){
         return repository.getOne(name);
     }

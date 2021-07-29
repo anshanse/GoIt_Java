@@ -8,7 +8,9 @@ public class Grocery {
 
     public static void main(String[] args) {
         //String goods = "ABCDABA";
-        String goods = "ASDF45AADEW";
+        //String goods = "ASDF45AADEW";
+        //String goods = "ABCDEFG";
+        String goods = "AAAA";
 
         Storage goodsStorage = new GroceryStorage();
         Bin<Storage, String> order = new GroceryBin();
