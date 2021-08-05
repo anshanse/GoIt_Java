@@ -2,13 +2,16 @@ package ProjectManagementSystem;
 
 import lombok.SneakyThrows;
 import repository.*;
+
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        DbConnection.getConnection();
+        //Connection connection = DbConnection.getConnection();
+        System.out.println(DbConnection.getConnection());
 
     }
         }
