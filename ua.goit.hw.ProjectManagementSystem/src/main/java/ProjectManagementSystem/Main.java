@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         //Connection connection = DbConnection.getConnection();
-        System.out.println(DbConnection.getConnection());
+        System.out.println("asd\n" + DbConnection.getConnection());
 
     }
         }
